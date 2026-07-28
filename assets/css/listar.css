@@ -1,0 +1,241 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #334155;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+ .sidebar { 
+    width: 250px; 
+    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%); 
+    color: white; 
+    padding: 25px 20px; 
+    display: flex; 
+    flex-direction: column; 
+}
+ .sidebar .brand { 
+     font-size: 20px; font-weight: 700; 
+     margin-bottom: 35px; 
+     display: flex; 
+     align-items: center; 
+     gap: 10px;
+ }
+        
+ .sidebar nav { 
+       display: flex; 
+       flex-direction: column; 
+       gap: 10px; 
+ }
+        
+.sidebar nav a { 
+            color: #cbd5e1; 
+            text-decoration: none; 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            font-size: 14.5px; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            transition: all 0.2s; 
+}
+        
+.sidebar nav a:hover, .sidebar nav a.active { 
+      background: rgba(255, 255, 255, 0.15); 
+      color: #ffffff; 
+   }
+
+/* Main Content & Topbar */
+.main-content {
+    flex: 1;
+    padding: 25px 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 18px 25px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.topbar-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-add {
+    background-color: #16a34a;
+    color: #ffffff;
+    padding: 9px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 600;
+}
+
+.btn-search {
+    background-color: #2b4c7e;
+    color: #ffffff;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Filter Section */
+.filter-section {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+
+.btn-apply {
+    padding: 8px 16px;
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-clear {
+    padding: 8px 16px;
+    background: #94a3b8;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* Table Card */
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    padding: 22px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    text-align: left;
+}
+
+.badge {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-receita {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-despesa {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.action-links a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13.5px;
+}
+
+.alert-success {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #86efac;
+}
+
+.alert-error {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+}
+/* Estilização para o Ícone e Etiqueta de Cor na Tabela */
+.category-item-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.category-icon-box {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+}
