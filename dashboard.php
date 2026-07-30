@@ -189,6 +189,7 @@ if ($usuario_id) {
             <a href="dashboard.php" class="active"><i class="fas fa-home"></i> <span>Visão Geral</span></a>
             <a href="pages/receitas/index.php"><i class="fas fa-hand-holding-dollar"></i> <span>Receitas</span></a>
             <a href="pages/despesas/listar.php"><i class="fas fa-file-invoice-dollar"></i> <span>Despesas</span></a>
+            <a href="pages/fluxo_caixa/listar.php"><i class="fas fa-scale-balanced"></i> <span>Fluxo de Caixa</span></a>
             <a href="pages/categorias/listar.php"><i class="fas fa-tags"></i> <span>Gerenciar Categorias</span></a>
             <!-- Botão Sair movido para o Sidebar -->
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></a>
