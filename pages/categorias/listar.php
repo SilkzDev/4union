@@ -56,7 +56,7 @@ try {
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Arquivo CSS isolado -->
-    <link rel="stylesheet" href="../../assets/css/listar.css">
+    <link rel="stylesheet" href="../../assets/css/listar.css?v=<?= time() ?>">
 
     <!-- Script Inline para restaurar o estado da Sidebar antes de carregar a página (Evita piscar a tela) -->
     <script>
@@ -463,7 +463,7 @@ try {
                                 $icone_categoria = !empty($row['icone']) ? $row['icone'] : 'fa-tag';
                             ?>
                             <tr>
-                                <td>
+                                <td data-label="Nome">
                                     <div class="category-item-info">
                                         <span class="category-icon-box" style="background-color: <?= htmlspecialchars($cor_categoria) ?>;">
                                             <i class="fas <?= htmlspecialchars($icone_categoria) ?>"></i>
@@ -471,18 +471,18 @@ try {
                                         <strong><?= htmlspecialchars($row['nome']) ?></strong>
                                     </div>
                                 </td>
-                                <td>
+                                <td data-label="Tipo">
                                     <span class="badge <?= $row['tipo'] === 'Receita' ? 'badge-receita' : 'badge-despesa' ?>">
                                         <?= htmlspecialchars($row['tipo']) ?>
                                     </span>
                                 </td>
-                                <td>
-                                    <?= $row['ativo'] === 'S' 
-                                        ? '<span style="color:#16a34a; font-weight:600;">Ativa</span>' 
-                                        : '<span style="color:#dc2626; font-weight:600;">Inativa</span>' 
+                                <td data-label="Status">
+                                    <?= $row['ativo'] === 'S'
+                                        ? '<span style="color:#16a34a; font-weight:600;">Ativa</span>'
+                                        : '<span style="color:#dc2626; font-weight:600;">Inativa</span>'
                                     ?>
                                 </td>
-                                <td class="action-links">
+                                <td class="action-links" data-label="Ações">
                                     <a href="javascript:void(0)" style="color:#64748b;" onclick="abrirModalVer(
                                         '<?= htmlspecialchars($row['nome'], ENT_QUOTES) ?>',
                                         '<?= htmlspecialchars($row['tipo'], ENT_QUOTES) ?>',

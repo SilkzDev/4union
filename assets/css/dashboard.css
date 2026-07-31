@@ -90,12 +90,13 @@ body {
 /* ==========================================================================
    ÁREA DE CONTEÚDO PRINCIPAL
    ========================================================================== */
-.main-content { 
-    flex: 1; 
-    padding: 35px; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 25px; 
+.main-content {
+    flex: 1;
+    min-width: 0; /* permite encolher: sem isso, gráficos e tabelas estouram a página */
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 /* Topbar / Cabeçalho Superior */
@@ -208,26 +209,391 @@ body {
 }
 
 /* ==========================================================================
+   SPRINT 09 - FILTROS DINÂMICOS (RF04, RF05)
+   ========================================================================== */
+.filter-section {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 13.5px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+
+.btn-apply {
+    padding: 9px 18px;
+    background: #16a34a;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13.5px;
+    cursor: pointer;
+}
+
+.btn-clear {
+    padding: 9px 18px;
+    background: #94a3b8;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13.5px;
+}
+
+/* Aviso de que a tela inteira está sob filtro */
+.filter-aviso {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    border-radius: 8px;
+    padding: 11px 16px;
+    font-size: 13.5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-aviso a {
+    color: #1e40af;
+    margin-left: auto;
+}
+
+/* O botão de filtro compartilha a aparência dos atalhos do topo */
+button.btn-categoria-topo {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.chart-vazio {
+    color: #94a3b8;
+    font-size: 13.5px;
+}
+
+/* ==========================================================================
+   SPRINT 09 - BUSINESS INTELLIGENCE (KPIs secundários, gráficos, crescimento)
+   ========================================================================== */
+.kpi-secondary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.kpi-secondary-grid .card {
+    padding: 16px 20px;
+}
+
+.kpi-secondary-grid .card h3 {
+    font-size: 12px;
+}
+
+.kpi-secondary-grid .card .value {
+    font-size: 20px;
+    margin-top: 6px;
+}
+
+.growth-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12.5px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+.growth-up {
+    color: #16a34a;
+}
+
+.growth-down {
+    color: #dc2626;
+}
+
+.chart-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    min-width: 0;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    min-width: 0;
+}
+
+.chart-card h3 {
+    font-size: 14px;
+    color: #334155;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chart-card .chart-wrap {
+    position: relative;
+    height: 260px;
+    min-width: 0;
+}
+
+.chart-card .chart-wrap canvas {
+    max-width: 100% !important;
+}
+
+.mov-table-wrap {
+    overflow-x: auto;
+}
+
+.mov-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+.mov-table th,
+.mov-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    text-align: left;
+}
+
+.badge {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-receita {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-despesa {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ==========================================================================
    RESPONSIVIDADE
    ========================================================================== */
+/* Em telas estreitas a sidebar deixa de ser coluna lateral e vira uma barra
+   horizontal de ícones no topo. Os seletores abaixo repetem `html`/`body` de
+   propósito: as regras do estado recolhido moram no <style> do dashboard.php,
+   que vem depois deste arquivo, então precisam ser vencidas na especificidade. */
 @media (max-width: 768px) {
-    body { 
-        flex-direction: column; 
+    html body {
+        flex-direction: column;
     }
-    
-    .sidebar { 
-        width: 100%; 
+
+    html body .sidebar,
+    html.sidebar-collapsed-init body .sidebar,
+    html body.sidebar-collapsed .sidebar {
+        width: 100% !important;
+        min-width: 0 !important;
         min-height: auto;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px !important;
+        overflow: visible;
     }
-    
-    .topbar { 
-        flex-direction: column; 
-        gap: 15px; 
-        align-items: flex-start; 
+
+    /* Recolher/expandir não faz sentido quando a barra já está horizontal */
+    html body .btn-toggle-sidebar {
+        display: none !important;
     }
-    
-    .topbar-actions { 
-        width: 100%; 
-        justify-content: space-between; 
+
+    html body .sidebar .brand,
+    html.sidebar-collapsed-init body .sidebar .brand,
+    html body.sidebar-collapsed .sidebar .brand {
+        margin-bottom: 0;
+        flex-shrink: 0;
+        justify-content: flex-start !important;
+    }
+
+    /* Só o ícone da marca: o texto roubaria espaço dos itens do menu */
+    html body .sidebar .brand-title span,
+    html.sidebar-collapsed-init body .sidebar .brand-title span,
+    html body.sidebar-collapsed .sidebar .brand-title span {
+        display: none !important;
+    }
+
+    html body .sidebar .brand-title,
+    html.sidebar-collapsed-init body .sidebar .brand-title,
+    html body.sidebar-collapsed .sidebar .brand-title {
+        display: flex !important;
+    }
+
+    html body .sidebar nav,
+    html.sidebar-collapsed-init body .sidebar nav,
+    html body.sidebar-collapsed .sidebar nav {
+        flex-direction: row;
+        justify-content: space-around;
+        flex: 1;
+        gap: 2px;
+    }
+
+    html body .sidebar nav a,
+    html.sidebar-collapsed-init body .sidebar nav a,
+    html body.sidebar-collapsed .sidebar nav a {
+        padding: 9px 10px !important;
+        justify-content: center !important;
+    }
+
+    html body .sidebar nav a span,
+    html.sidebar-collapsed-init body .sidebar nav a span,
+    html body.sidebar-collapsed .sidebar nav a span {
+        display: none !important;
+    }
+
+    html body .sidebar nav a i,
+    html.sidebar-collapsed-init body .sidebar nav a i,
+    html body.sidebar-collapsed .sidebar nav a i {
+        margin-right: 0 !important;
+        font-size: 1.15rem !important;
+    }
+
+    /* Desfaz o deslocamento herdado do estado recolhido */
+    html body .main-content,
+    html.sidebar-collapsed-init body .main-content,
+    html body.sidebar-collapsed .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 18px 14px;
+    }
+
+    .topbar {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .topbar-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    /* Gráficos ficam mais baixos para não empurrar o conteúdo tela abaixo */
+    .chart-card .chart-wrap {
+        height: 220px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .card .value {
+        font-size: 22px;
+    }
+
+    /* Últimas Movimentações vira lista de cartões, sem rolagem lateral */
+    .mov-table-wrap {
+        overflow-x: visible;
+    }
+
+    .mov-table thead {
+        display: none;
+    }
+
+    .mov-table,
+    .mov-table tbody,
+    .mov-table tr,
+    .mov-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .mov-table tr {
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 6px 14px;
+        margin-bottom: 12px;
+    }
+
+    .mov-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 14px;
+        padding: 8px 0;
+        border: 0;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: right;
+    }
+
+    .mov-table tr td:last-child {
+        border-bottom: 0;
+    }
+
+    .mov-table td::before {
+        content: attr(data-label);
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+        text-transform: uppercase;
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    /* Atalhos do topo ocupam a largura toda, com altura confortável ao toque */
+    .topbar-actions .btn-categoria-topo {
+        flex: 1 1 100%;
+        justify-content: center;
+        min-height: 44px;
+    }
+
+    /* 16px evita o zoom automático do Safari/iOS ao focar um campo */
+    .filter-group input,
+    .filter-group select {
+        font-size: 16px;
+    }
+
+    .btn-apply,
+    .btn-clear {
+        flex: 1;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
     }
 }

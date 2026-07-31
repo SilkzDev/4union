@@ -144,7 +144,7 @@ $movimentacoes_exibicao = array_reverse($movimentacoes);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fluxo de Caixa - 4 Union</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/listar.css">
+    <link rel="stylesheet" href="../../assets/css/listar.css?v=<?= time() ?>">
 
     <script>
         if (localStorage.getItem('sidebarCollapsed') === 'true') {
@@ -301,21 +301,21 @@ $movimentacoes_exibicao = array_reverse($movimentacoes);
                     <tbody>
                         <?php foreach ($movimentacoes_exibicao as $mov): ?>
                             <tr>
-                                <td><?= !empty($mov['data']) ? date('d/m/Y', strtotime($mov['data'])) : '-' ?></td>
-                                <td>
+                                <td data-label="Data"><?= !empty($mov['data']) ? date('d/m/Y', strtotime($mov['data'])) : '-' ?></td>
+                                <td data-label="Tipo">
                                     <span class="badge <?= $mov['tipo'] === 'Receita' ? 'badge-receita' : 'badge-despesa' ?>">
                                         <?= htmlspecialchars($mov['tipo']) ?>
                                     </span>
                                 </td>
-                                <td><strong><?= htmlspecialchars($mov['descricao']) ?></strong></td>
-                                <td><?= htmlspecialchars($mov['categoria_nome'] ?? 'Sem Categoria') ?></td>
-                                <td style="color:#16a34a; font-weight:600;">
+                                <td data-label="Descrição"><strong><?= htmlspecialchars($mov['descricao']) ?></strong></td>
+                                <td data-label="Categoria"><?= htmlspecialchars($mov['categoria_nome'] ?? 'Sem Categoria') ?></td>
+                                <td data-label="Entrada" style="color:#16a34a; font-weight:600;">
                                     <?= $mov['entrada'] > 0 ? 'R$ ' . formatarValorSemArredondar($mov['entrada']) : '-' ?>
                                 </td>
-                                <td style="color:#dc2626; font-weight:600;">
+                                <td data-label="Saída" style="color:#dc2626; font-weight:600;">
                                     <?= $mov['saida'] > 0 ? 'R$ ' . formatarValorSemArredondar($mov['saida']) : '-' ?>
                                 </td>
-                                <td style="font-weight:700;">
+                                <td data-label="Saldo" style="font-weight:700;">
                                     R$ <?= formatarValorSemArredondar($mov['saldo']) ?>
                                 </td>
                             </tr>

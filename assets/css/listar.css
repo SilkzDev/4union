@@ -13,13 +13,14 @@ body {
 }
 
 /* Sidebar */
- .sidebar { 
-    width: 250px; 
-    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%); 
-    color: white; 
-    padding: 25px 20px; 
-    display: flex; 
-    flex-direction: column; 
+ .sidebar {
+    width: 250px;
+    flex-shrink: 0; /* mantém a largura fixa quando o conteúdo ao lado é largo */
+    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
 }
  .sidebar .brand { 
      font-size: 20px; font-weight: 700; 
@@ -56,6 +57,7 @@ body {
 /* Main Content & Topbar */
 .main-content {
     flex: 1;
+    min-width: 0; /* permite encolher: sem isso, tabelas largas estouram a página */
     padding: 25px 35px;
     display: flex;
     flex-direction: column;
@@ -238,4 +240,233 @@ body {
     font-size: 14px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     flex-shrink: 0;
+}
+
+/* Tabelas largas (Fluxo de Caixa, Despesas, Receitas) ganham scroll próprio
+   em vez de estourar a largura da página inteira */
+.card {
+    overflow-x: auto;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (mobile)
+   ========================================================================== */
+/* Em telas estreitas a sidebar deixa de ser coluna lateral e vira uma barra
+   horizontal de ícones no topo. Os seletores abaixo repetem `html`/`body` de
+   propósito: as regras do estado recolhido moram no <style> de cada página,
+   que vem depois deste arquivo, então precisam ser vencidas na especificidade. */
+@media (max-width: 768px) {
+    html body {
+        flex-direction: column;
+    }
+
+    html body .sidebar,
+    html.sidebar-collapsed-init body .sidebar,
+    html body.sidebar-collapsed .sidebar {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: auto;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px !important;
+        overflow: visible;
+    }
+
+    /* Recolher/expandir não faz sentido quando a barra já está horizontal */
+    html body .btn-toggle-sidebar {
+        display: none !important;
+    }
+
+    html body .sidebar .brand,
+    html.sidebar-collapsed-init body .sidebar .brand,
+    html body.sidebar-collapsed .sidebar .brand {
+        margin-bottom: 0;
+        flex-shrink: 0;
+        justify-content: flex-start !important;
+    }
+
+    /* Só o ícone da marca: o texto roubaria espaço dos itens do menu */
+    html body .sidebar .brand-title span,
+    html.sidebar-collapsed-init body .sidebar .brand-title span,
+    html body.sidebar-collapsed .sidebar .brand-title span {
+        display: none !important;
+    }
+
+    html body .sidebar .brand-title,
+    html.sidebar-collapsed-init body .sidebar .brand-title,
+    html body.sidebar-collapsed .sidebar .brand-title {
+        display: flex !important;
+    }
+
+    html body .sidebar nav,
+    html.sidebar-collapsed-init body .sidebar nav,
+    html body.sidebar-collapsed .sidebar nav {
+        flex-direction: row;
+        justify-content: space-around;
+        flex: 1;
+        gap: 2px;
+    }
+
+    html body .sidebar nav a,
+    html.sidebar-collapsed-init body .sidebar nav a,
+    html body.sidebar-collapsed .sidebar nav a {
+        padding: 9px 10px !important;
+        justify-content: center !important;
+    }
+
+    html body .sidebar nav a span,
+    html.sidebar-collapsed-init body .sidebar nav a span,
+    html body.sidebar-collapsed .sidebar nav a span {
+        display: none !important;
+    }
+
+    html body .sidebar nav a i,
+    html.sidebar-collapsed-init body .sidebar nav a i,
+    html body.sidebar-collapsed .sidebar nav a i {
+        margin-right: 0 !important;
+        font-size: 1.15rem !important;
+    }
+
+    /* Desfaz o deslocamento herdado do estado recolhido */
+    html body .main-content,
+    html.sidebar-collapsed-init body .main-content,
+    html body.sidebar-collapsed .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 18px 14px;
+    }
+
+    .topbar {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .topbar-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .modal-container,
+    .modal-container-excluir {
+        padding: 20px;
+    }
+
+    .modal-container div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Tabela vira lista de cartões: cada registro ocupa um bloco e cada célula
+       exibe o próprio rótulo. Evita rolagem lateral e mantém as ações visíveis. */
+    .card {
+        overflow-x: visible;
+    }
+
+    .data-table thead {
+        display: none;
+    }
+
+    .data-table,
+    .data-table tbody,
+    .data-table tr,
+    .data-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .data-table tr {
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 6px 14px;
+        margin-bottom: 12px;
+        background: #ffffff;
+    }
+
+    .data-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 14px;
+        padding: 8px 0;
+        border: 0;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: right;
+    }
+
+    .data-table tr td:last-child {
+        border-bottom: 0;
+    }
+
+    .data-table td::before {
+        content: attr(data-label);
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+        text-transform: uppercase;
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    /* Ações viram botões lado a lado, com altura confortável para o toque */
+    .data-table td.action-links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 12px 0;
+    }
+
+    .data-table td.action-links::before {
+        grid-column: 1 / -1;
+        margin-bottom: 2px;
+    }
+
+    .data-table td.action-links a {
+        margin: 0;
+        min-height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+    }
+
+    /* Nome + ícone da categoria alinhados à direita, como os demais valores */
+    .data-table td .category-item-info {
+        justify-content: flex-end;
+    }
+
+    /* 16px evita o zoom automático do Safari/iOS ao focar um campo */
+    .filter-group input,
+    .filter-group select,
+    .form-group-custom input,
+    .form-group-custom select,
+    .form-group-custom textarea {
+        font-size: 16px;
+    }
+
+    /* Modal ocupa quase toda a tela: mais área útil para preencher o formulário */
+    .modal-overlay {
+        padding: 10px;
+        align-items: flex-start;
+    }
+
+    .modal-container {
+        max-height: 94vh;
+    }
+
+    .modal-footer-custom,
+    .modal-footer-excluir {
+        flex-direction: column-reverse;
+    }
+
+    .modal-footer-custom button,
+    .modal-footer-excluir button,
+    .modal-footer-excluir a {
+        width: 100%;
+        min-height: 44px;
+        text-align: center;
+    }
 }

@@ -136,7 +136,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despesas - 4 Union</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/listar.css">
+    <link rel="stylesheet" href="../../assets/css/listar.css?v=<?= time() ?>">
 
     <script>
         if (localStorage.getItem('sidebarCollapsed') === 'true') {
@@ -313,18 +313,18 @@ try {
                     <tbody>
                         <?php foreach ($despesas as $row): ?>
                             <tr class="<?= $row['status'] === 'Pendente' ? 'row-pendente' : '' ?>">
-                                <td><?= !empty($row['data_pagamento']) ? date('d/m/Y', strtotime($row['data_pagamento'])) : '-' ?></td>
-                                <td><strong><?= htmlspecialchars($row['fornecedor_nome'] ?? 'Não informado') ?></strong></td>
-                                <td><?= htmlspecialchars($row['categoria_nome'] ?? 'Sem Categoria') ?></td>
-                                <td style="color:#dc2626; font-weight:600;">
+                                <td data-label="Data"><?= !empty($row['data_pagamento']) ? date('d/m/Y', strtotime($row['data_pagamento'])) : '-' ?></td>
+                                <td data-label="Fornecedor"><strong><?= htmlspecialchars($row['fornecedor_nome'] ?? 'Não informado') ?></strong></td>
+                                <td data-label="Categoria"><?= htmlspecialchars($row['categoria_nome'] ?? 'Sem Categoria') ?></td>
+                                <td data-label="Valor" style="color:#dc2626; font-weight:600;">
                                     R$ <?= formatarValorSemArredondar($row['valor']) ?>
                                 </td>
-                                <td>
+                                <td data-label="Status">
                                     <span class="badge <?= $row['status'] === 'Pago' ? 'badge-receita' : 'badge-despesa' ?>">
                                         <?= htmlspecialchars($row['status']) ?>
                                     </span>
                                 </td>
-                                <td class="action-links">
+                                <td class="action-links" data-label="Ações">
                                     <a href="javascript:void(0)" style="color:#64748b;" onclick="abrirModalVisualizar(<?= $row['id'] ?>)">
                                         <i class="fas fa-eye"></i> Ver
                                     </a>
