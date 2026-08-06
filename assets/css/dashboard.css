@@ -26,14 +26,26 @@ body {
     flex-direction: column; 
 }
 
-.sidebar .brand { 
-    font-size: 20px; 
-    font-weight: 700; 
-    margin-bottom: 35px; 
-    display: flex; 
-    align-items: center; 
+.sidebar .brand {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 10px; 
+    gap: 10px;
+}
+
+.sidebar-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+.sidebar-logo-compact {
+    height: 32px;
+    width: 32px;
+    display: none;
 }
 
 .sidebar nav { 
@@ -457,6 +469,13 @@ button.btn-categoria-topo {
         display: none !important;
     }
 
+    /* A logo encolhe pra caber na barra horizontal fina do mobile */
+    html body .sidebar-logo,
+    html.sidebar-collapsed-init body .sidebar-logo,
+    html body.sidebar-collapsed .sidebar-logo {
+        height: 28px !important;
+    }
+
     html body .sidebar .brand-title,
     html.sidebar-collapsed-init body .sidebar .brand-title,
     html body.sidebar-collapsed .sidebar .brand-title {
@@ -490,6 +509,29 @@ button.btn-categoria-topo {
     html body.sidebar-collapsed .sidebar nav a i {
         margin-right: 0 !important;
         font-size: 1.15rem !important;
+    }
+
+    /* "Sair" acompanha o mesmo tratamento de ícone só, sem a borda/margem de rodapé */
+    html body .sidebar-footer,
+    html.sidebar-collapsed-init body .sidebar-footer,
+    html body.sidebar-collapsed .sidebar-footer {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        flex-shrink: 0;
+    }
+
+    html body .sidebar-footer a,
+    html.sidebar-collapsed-init body .sidebar-footer a,
+    html body.sidebar-collapsed .sidebar-footer a {
+        padding: 9px 10px !important;
+        justify-content: center !important;
+    }
+
+    html body .sidebar-footer a span,
+    html.sidebar-collapsed-init body .sidebar-footer a span,
+    html body.sidebar-collapsed .sidebar-footer a span {
+        display: none !important;
     }
 
     /* Desfaz o deslocamento herdado do estado recolhido */

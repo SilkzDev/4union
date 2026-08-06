@@ -1,5 +1,9 @@
 -- Migração: Módulo de Despesas (Sprint 07)
--- Rode este script no phpMyAdmin, no banco `financeiro`, antes de usar o módulo de despesas.
+-- OBSOLETO: já está toda incorporada em 01_schema_e_dados_iniciais.sql
+-- (a tabela despesas já nasce com a coluna `ativo`, e os seeds de contas e
+-- fornecedores abaixo já vêm no INSERT do dump). NÃO rode este script numa
+-- instalação nova — o ALTER TABLE falha (coluna já existe) e os INSERTs
+-- duplicam linhas. Mantido só como registro histórico da migração original.
 
 -- 1. Coluna de exclusão lógica (RF03), no mesmo padrão já usado em categorias/receitas/clientes/etc.
 ALTER TABLE despesas ADD COLUMN ativo CHAR(1) NOT NULL DEFAULT 'S' AFTER status;

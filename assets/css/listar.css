@@ -2,11 +2,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f4f6f9;
+    background-color: #f8fafc;
     color: #334155;
     display: flex;
     min-height: 100vh;
@@ -49,10 +49,61 @@ body {
             transition: all 0.2s; 
 }
         
-.sidebar nav a:hover, .sidebar nav a.active { 
-      background: rgba(255, 255, 255, 0.15); 
-      color: #ffffff; 
+.sidebar nav a:hover, .sidebar nav a.active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
    }
+
+/* Rodapé da Sidebar (Botão Sair) */
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.sidebar-footer a {
+    color: #fca5a5;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14.5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar-footer a:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ffffff;
+}
+
+/* Botão de recolher/expandir a sidebar e o estado recolhido (desktop).
+   Centralizado aqui porque as 4 páginas que incluem este arquivo (categorias,
+   despesas, receitas, fluxo de caixa) usavam uma cópia idêntica deste bloco
+   dentro de um <style> próprio — mantido em um único lugar agora. */
+.sidebar .brand { display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 10px; }
+.sidebar .brand-title { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.sidebar-logo { height: 40px; width: auto; display: block; }
+.sidebar-logo-compact { height: 32px; width: 32px; display: none; }
+.btn-toggle-sidebar { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; font-size: 0.85rem; width: 30px; height: 30px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.btn-toggle-sidebar:hover { background: rgba(255, 255, 255, 0.25); color: #ffffff; }
+.btn-toggle-sidebar i { transition: transform 0.3s ease; }
+.sidebar, .main-content { transition: all 0.3s ease-in-out !important; }
+html.sidebar-collapsed-init body, body.sidebar-collapsed { --sidebar-w: 70px; }
+html.sidebar-collapsed-init .sidebar, body.sidebar-collapsed .sidebar { width: 70px !important; min-width: 70px !important; padding-left: 8px !important; padding-right: 8px !important; overflow: hidden; }
+html.sidebar-collapsed-init .sidebar .brand, body.sidebar-collapsed .sidebar .brand { justify-content: center !important; }
+html.sidebar-collapsed-init .sidebar .brand-title, body.sidebar-collapsed .sidebar .brand-title { display: flex !important; justify-content: center !important; }
+html.sidebar-collapsed-init .sidebar-logo-full, body.sidebar-collapsed .sidebar-logo-full { display: none !important; }
+html.sidebar-collapsed-init .sidebar-logo-compact, body.sidebar-collapsed .sidebar-logo-compact { display: block !important; }
+html.sidebar-collapsed-init .sidebar .btn-toggle-sidebar i, body.sidebar-collapsed .sidebar .btn-toggle-sidebar i { transform: rotate(180deg); }
+html.sidebar-collapsed-init .sidebar nav a span, body.sidebar-collapsed .sidebar nav a span { display: none !important; }
+html.sidebar-collapsed-init .sidebar nav a, body.sidebar-collapsed .sidebar nav a { justify-content: center !important; padding: 12px 0 !important; text-align: center; }
+html.sidebar-collapsed-init .sidebar nav a i, body.sidebar-collapsed .sidebar nav a i { margin-right: 0 !important; font-size: 1.25rem !important; }
+html.sidebar-collapsed-init .sidebar-footer a, body.sidebar-collapsed .sidebar-footer a { justify-content: center !important; padding: 12px 0 !important; text-align: center; }
+html.sidebar-collapsed-init .sidebar-footer a i, body.sidebar-collapsed .sidebar-footer a i { margin-right: 0 !important; font-size: 1.25rem !important; }
+html.sidebar-collapsed-init .main-content, body.sidebar-collapsed .main-content { margin-left: 70px !important; width: calc(100% - 70px) !important; }
 
 /* Main Content & Topbar */
 .main-content {
@@ -253,8 +304,8 @@ body {
    ========================================================================== */
 /* Em telas estreitas a sidebar deixa de ser coluna lateral e vira uma barra
    horizontal de ícones no topo. Os seletores abaixo repetem `html`/`body` de
-   propósito: as regras do estado recolhido moram no <style> de cada página,
-   que vem depois deste arquivo, então precisam ser vencidas na especificidade. */
+   propósito, para vencer a especificidade das regras do estado recolhido
+   (desktop) definidas acima. */
 @media (max-width: 768px) {
     html body {
         flex-direction: column;
@@ -293,6 +344,13 @@ body {
         display: none !important;
     }
 
+    /* A logo encolhe pra caber na barra horizontal fina do mobile */
+    html body .sidebar-logo,
+    html.sidebar-collapsed-init body .sidebar-logo,
+    html body.sidebar-collapsed .sidebar-logo {
+        height: 28px !important;
+    }
+
     html body .sidebar .brand-title,
     html.sidebar-collapsed-init body .sidebar .brand-title,
     html body.sidebar-collapsed .sidebar .brand-title {
@@ -326,6 +384,29 @@ body {
     html body.sidebar-collapsed .sidebar nav a i {
         margin-right: 0 !important;
         font-size: 1.15rem !important;
+    }
+
+    /* "Sair" acompanha o mesmo tratamento de ícone só, sem a borda/margem de rodapé */
+    html body .sidebar-footer,
+    html.sidebar-collapsed-init body .sidebar-footer,
+    html body.sidebar-collapsed .sidebar-footer {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        flex-shrink: 0;
+    }
+
+    html body .sidebar-footer a,
+    html.sidebar-collapsed-init body .sidebar-footer a,
+    html body.sidebar-collapsed .sidebar-footer a {
+        padding: 9px 10px !important;
+        justify-content: center !important;
+    }
+
+    html body .sidebar-footer a span,
+    html.sidebar-collapsed-init body .sidebar-footer a span,
+    html body.sidebar-collapsed .sidebar-footer a span {
+        display: none !important;
     }
 
     /* Desfaz o deslocamento herdado do estado recolhido */

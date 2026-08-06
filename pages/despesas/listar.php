@@ -145,22 +145,6 @@ try {
     </script>
 
     <style>
-        .sidebar .brand { display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 10px; }
-        .sidebar .brand-title { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-        .btn-toggle-sidebar { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; font-size: 0.85rem; width: 30px; height: 30px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .btn-toggle-sidebar:hover { background: rgba(255, 255, 255, 0.25); color: #ffffff; }
-        .btn-toggle-sidebar i { transition: transform 0.3s ease; }
-        .sidebar, .main-content { transition: all 0.3s ease-in-out !important; }
-        html.sidebar-collapsed-init body, body.sidebar-collapsed { --sidebar-w: 70px; }
-        html.sidebar-collapsed-init .sidebar, body.sidebar-collapsed .sidebar { width: 70px !important; min-width: 70px !important; padding-left: 8px !important; padding-right: 8px !important; overflow: hidden; }
-        html.sidebar-collapsed-init .sidebar .brand, body.sidebar-collapsed .sidebar .brand { justify-content: center !important; }
-        html.sidebar-collapsed-init .sidebar .brand-title, body.sidebar-collapsed .sidebar .brand-title { display: none !important; }
-        html.sidebar-collapsed-init .sidebar .btn-toggle-sidebar i, body.sidebar-collapsed .sidebar .btn-toggle-sidebar i { transform: rotate(180deg); }
-        html.sidebar-collapsed-init .sidebar nav a span, body.sidebar-collapsed .sidebar nav a span { display: none !important; }
-        html.sidebar-collapsed-init .sidebar nav a, body.sidebar-collapsed .sidebar nav a { justify-content: center !important; padding: 12px 0 !important; text-align: center; }
-        html.sidebar-collapsed-init .sidebar nav a i, body.sidebar-collapsed .sidebar nav a i { margin-right: 0 !important; font-size: 1.25rem !important; }
-        html.sidebar-collapsed-init .main-content, body.sidebar-collapsed .main-content { margin-left: 70px !important; width: calc(100% - 70px) !important; }
-
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
         .modal-container { background: #ffffff; border-radius: 12px; padding: 24px 28px; width: 100%; max-width: 650px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); animation: modalSlideIn 0.2s ease-out; }
         @keyframes modalSlideIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
@@ -195,22 +179,7 @@ try {
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="brand">
-            <span class="brand-title"><i class="fas fa-chart-line"></i> <span>4 Union</span></span>
-            <button type="button" class="btn-toggle-sidebar" onclick="toggleSidebar()" title="Recolher/Expandir Menu">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-        </div>
-        <nav>
-            <a href="../../dashboard.php"><i class="fas fa-home"></i> <span>Visão Geral</span></a>
-            <a href="../receitas/listar.php"><i class="fas fa-hand-holding-dollar"></i> <span>Receitas</span></a>
-            <a href="listar.php" class="active"><i class="fas fa-file-invoice-dollar"></i> <span>Despesas</span></a>
-            <a href="../fluxo_caixa/listar.php"><i class="fas fa-scale-balanced"></i> <span>Fluxo de Caixa</span></a>
-            <a href="../categorias/listar.php"><i class="fas fa-tags"></i> <span>Gerenciar Categorias</span></a>
-            <a href="../../logout.php"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></a>
-        </nav>
-    </aside>
+    <?php $sidebarActive = 'despesas'; $sidebarRoot = '../../'; include __DIR__ . '/../../partials/sidebar.php'; ?>
 
     <main class="main-content">
         <header class="topbar">

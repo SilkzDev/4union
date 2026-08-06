@@ -116,8 +116,12 @@ financeiro/
 │
 ├── libs/phpmailer/         # PHPMailer (ver Limitações conhecidas)
 ├── database/
-│   ├── financeiro (2).sql          # Dump completo do banco
-│   └── migration_despesas.sql      # Migração da Sprint 07
+│   ├── 01_schema_e_dados_iniciais.sql       # Dump completo do banco (obrigatório)
+│   ├── 02_seed_receitas_e_despesas.sql      # Seed opcional de demonstração
+│   ├── 03_seed_metas_e_clientes.sql         # Seed opcional (Dashboard Executivo)
+│   ├── obsoleto_migration_despesas.sql      # Já incorporada no 01, não rodar
+│   ├── referencia_consulta_fluxo_caixa.sql  # Documentação, não é script
+│   └── referencia_consultas_dashboard_bi.sql # Documentação, não é script
 └── img/
 ```
 
@@ -156,13 +160,22 @@ git clone https://github.com/SilkzDev/4union.git financeiro
 No phpMyAdmin, crie o banco `financeiro` e importe:
 
 ```
-database/financeiro (2).sql
+database/01_schema_e_dados_iniciais.sql
 ```
 
 O dump já inclui a estrutura completa e a coluna `ativo` do módulo de despesas.
 
-> Se você estiver atualizando uma instalação anterior à Sprint 07, rode
-> `database/migration_despesas.sql` em vez de reimportar o dump.
+> Se você estiver atualizando uma instalação anterior à Sprint 07, essa
+> migração já está incorporada no dump acima — não é preciso rodar
+> `database/obsoleto_migration_despesas.sql` separadamente.
+
+Opcionalmente, para não ver as telas zeradas, rode também os seeds de
+demonstração (em qualquer ordem, nenhum depende do outro):
+
+```
+database/02_seed_receitas_e_despesas.sql
+database/03_seed_metas_e_clientes.sql
+```
 
 **3. Configure a conexão**
 

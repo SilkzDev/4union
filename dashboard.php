@@ -367,7 +367,18 @@ $paleta_categorica = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#8
 
         html.sidebar-collapsed-init .sidebar .brand-title,
         body.sidebar-collapsed .sidebar .brand-title {
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        html.sidebar-collapsed-init .sidebar-logo-full,
+        body.sidebar-collapsed .sidebar-logo-full {
             display: none !important;
+        }
+
+        html.sidebar-collapsed-init .sidebar-logo-compact,
+        body.sidebar-collapsed .sidebar-logo-compact {
+            display: block !important;
         }
 
         html.sidebar-collapsed-init .sidebar .btn-toggle-sidebar i,
@@ -393,6 +404,19 @@ $paleta_categorica = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#8
             font-size: 1.25rem !important;
         }
 
+        html.sidebar-collapsed-init .sidebar-footer a,
+        body.sidebar-collapsed .sidebar-footer a {
+            justify-content: center !important;
+            padding: 12px 0 !important;
+            text-align: center;
+        }
+
+        html.sidebar-collapsed-init .sidebar-footer a i,
+        body.sidebar-collapsed .sidebar-footer a i {
+            margin-right: 0 !important;
+            font-size: 1.25rem !important;
+        }
+
         html.sidebar-collapsed-init .main-content,
         body.sidebar-collapsed .main-content {
             margin-left: 70px !important;
@@ -402,25 +426,7 @@ $paleta_categorica = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#8
 </head>
 <body>
 
-    <!-- Sidebar de Navegação Esquerda -->
-    <aside class="sidebar">
-        <div class="brand">
-            <span class="brand-title"><i class="fas fa-chart-line"></i> <span>4 Union</span></span>
-
-            <button type="button" class="btn-toggle-sidebar" onclick="toggleSidebar()" title="Recolher/Expandir Menu">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-        </div>
-        <nav>
-            <a href="dashboard.php" class="active"><i class="fas fa-home"></i> <span>Visão Geral</span></a>
-            <a href="pages/receitas/index.php"><i class="fas fa-hand-holding-dollar"></i> <span>Receitas</span></a>
-            <a href="pages/despesas/listar.php"><i class="fas fa-file-invoice-dollar"></i> <span>Despesas</span></a>
-            <a href="pages/fluxo_caixa/listar.php"><i class="fas fa-scale-balanced"></i> <span>Fluxo de Caixa</span></a>
-            <a href="pages/categorias/listar.php"><i class="fas fa-tags"></i> <span>Gerenciar Categorias</span></a>
-            <!-- Botão Sair movido para o Sidebar -->
-            <a href="logout.php"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></a>
-        </nav>
-    </aside>
+    <?php $sidebarActive = 'dashboard'; $sidebarRoot = ''; include __DIR__ . '/partials/sidebar.php'; ?>
 
     <!-- Conteúdo Principal -->
     <main class="main-content">
@@ -437,7 +443,7 @@ $paleta_categorica = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#8
                 <button type="button" class="btn-categoria-topo" onclick="toggleFiltros()">
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
-                <a href="pages/receitas/index.php" class="btn-categoria-topo" style="background-color: #2e7d32;">
+                <a href="pages/receitas/listar.php" class="btn-categoria-topo" style="background-color: #16a34a;">
                     <i class="fas fa-plus-circle"></i> Nova Receita
                 </a>
                 <a href="pages/categorias/listar.php?nova=1" class="btn-categoria-topo">

@@ -82,8 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Nova Senha - Sistema Financeiro</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .container { background: #ffffff; width: 100%; max-width: 400px; padding: 40px 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        body { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .container { background: #ffffff; width: 100%; max-width: 400px; padding: 40px 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         h2 { color: #1e3c72; margin-bottom: 10px; text-align: center; font-size: 24px; }
         p.desc { text-align: center; color: #64748b; font-size: 14px; margin-bottom: 25px; }
         .error { background-color: #fef2f2; color: #dc2626; padding: 12px; border-radius: 6px; border: 1px solid #fca5a5; font-size: 14px; margin-bottom: 20px; }
@@ -91,9 +91,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; color: #334155; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
         .form-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 15px; outline: none; }
-        .form-group input:focus { border-color: #1e3c72; box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.15); }
-        .btn { width: 100%; padding: 12px; background-color: #10b981; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-        .btn:hover { background-color: #059669; }
+        .form-group input:focus { border-color: #2a5298; box-shadow: 0 0 0 3px rgba(42,82,152,0.15); }
+        .btn { width: 100%; padding: 12px; background-color: #1e3c72; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .btn:hover { background-color: #2a5298; }
     </style>
 </head>
 <body>

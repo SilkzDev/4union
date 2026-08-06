@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <!-- Logo colocada FORA do card branco -->
         <div class="brand">
-            <img src="img/logo2.png" alt="4 Union Logo" class="login-logo">
+            <img src="img/4union-logo_extenso.png" alt="4 Union Logo" class="login-logo">
         </div>
 
         <!-- Card Branco de Login -->
